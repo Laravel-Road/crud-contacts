@@ -29,7 +29,8 @@ class ContactCreateTest extends TestCase
         Livewire::test(ContactNew::class)
             ->call('mount', $contactFake)
             ->call('store')
-            ->assertEmitted('created');
+            ->assertEmitted('created')
+            ->assertEmitted('refreshList');
 
         $this->assertDatabaseHas('contacts', $contactFake->toArray());
     }
