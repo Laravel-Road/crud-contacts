@@ -19,6 +19,7 @@ class CreateContactsTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->text('message');
+            $table->foreignId('team_id')->constrained();
             $table->timestamps();
         });
     }
