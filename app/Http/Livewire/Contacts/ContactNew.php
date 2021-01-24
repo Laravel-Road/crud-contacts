@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Contacts;
 
 use App\Models\Contact;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class ContactNew extends Component
 {
+    use AuthorizesRequests;
+
     public Contact $newContact;
 
     public function mount(Contact $contact)
@@ -16,6 +19,8 @@ class ContactNew extends Component
 
     public function store()
     {
+        $this->authorize('create', Contact::class);
+
         $this->validate();
 
         $this->newContact->save();

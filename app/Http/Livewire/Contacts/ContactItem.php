@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Contacts;
 
 use App\Models\Contact;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class ContactItem extends Component
 {
+    use AuthorizesRequests;
+
     public Contact $contact;
 
     public bool $updating;
@@ -15,6 +18,8 @@ class ContactItem extends Component
 
     public function edit(Contact $contact)
     {
+        $this->authorize('update', $contact);
+
         $this->clearValidation();
 
         $this->updating = true;
@@ -35,6 +40,8 @@ class ContactItem extends Component
 
     public function confirmDeletion(Contact $contact)
     {
+        $this->authorize('delete', $contact);
+
         $this->destroying = true;
 
         $this->contact = $contact;

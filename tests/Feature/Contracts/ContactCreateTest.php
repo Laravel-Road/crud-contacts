@@ -24,7 +24,8 @@ class ContactCreateTest extends TestCase
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
-        $contactFake = Contact::factory()->make();
+        $contactFake = Contact::factory()
+            ->make(['team_id' => $user->currentTeam->id]);
 
         Livewire::test(ContactNew::class)
             ->call('mount', $contactFake)
@@ -59,7 +60,11 @@ class ContactCreateTest extends TestCase
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
-        $contactFake = Contact::factory()->make(['email' => 'invalid']);
+        $contactFake = Contact::factory()
+            ->make([
+                'email' => 'invalid',
+                'team_id' => $user->currentTeam->id,
+            ]);
 
         Livewire::test(ContactNew::class)
             ->call('mount', $contactFake)
