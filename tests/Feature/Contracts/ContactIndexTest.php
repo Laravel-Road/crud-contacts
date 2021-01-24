@@ -8,8 +8,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 /**
- * @group contact
- * @group indexContact
+ * @group contacts
+ * @group contactIndex
  */
 class ContactIndexTest extends TestCase
 {
@@ -23,6 +23,7 @@ class ContactIndexTest extends TestCase
     {
         $this->actingAs(User::factory()->withPersonalTeam()->create())
             ->get(route('contacts.index'))
-            ->assertSeeLivewire('contacts.contact-new');
+            ->assertSeeLivewire('contacts.contact-new')
+            ->assertSeeLivewire('contacts.contact-list');
     }
 }
